@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'package:whatsapp/colors.dart';
+import 'package:whatsapp/widgets/chat_list.dart';
+import 'package:whatsapp/widgets/contacts_list.dart';
+import 'package:whatsapp/widgets/web_chat_appbar.dart';
+import 'package:whatsapp/widgets/web_profile_bar.dart';
+import 'package:whatsapp/widgets/web_search_bar.dart';
+
+class WebScreenLayout extends StatelessWidget {
+  const WebScreenLayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: const [
+                  WebProfileBar(),
+                  WebSearchBar(),
+                  ContactsList(),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.75,
+            decoration: const BoxDecoration(
+                border: Border(left: BorderSide(color: dividerColor)),
+                image: DecorationImage(
+                    image: AssetImage('assets/backgroundImage.png'),
+                    fit: BoxFit.cover)),
+            child: Column(
+              children: [
+                const WebChatAppbar(),
+                const SizedBox(height: 20),
+                const Expanded(child: ChatList()),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: chatBarMessage,
+                      border: Border(bottom: BorderSide(color: dividerColor))),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.emoji_emotions_outlined),
+                          color: Colors.grey),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.attach_file),
+                          color: Colors.grey),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 15),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 20),
+                              fillColor: searchBarColor,
+                              filled: true,
+                              hintText: 'Type a message',
+                              // hintStyle: const TextStyle(fontSize: 14),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                  borderSide: const BorderSide(
+                                      width: 0, style: BorderStyle.none))),
+                        ),
+                      )),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.mic,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
